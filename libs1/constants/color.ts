@@ -1,0 +1,112 @@
+export type RootColors =
+  | "--bg-mode"
+  | "--white-base"
+  | "--black-base"
+  | "--default-text-color"
+  | "--primary-1"
+  | "--primary-2"
+  | "--primary-3"
+  | "--secondary-1"
+  | "--secondary-2"
+  | "--secondary-3"
+  | "--warning-1"
+  | "--warning-2"
+  | "--warning-3"
+  | "--border-1"
+  | "--border-2"
+  | "--border-3"
+  | "--danger-1"
+  | "--danger-2"
+  | "--danger-3"
+  | "--info-1"
+  | "--info-2"
+  | "--info-3"
+  | "--success-1"
+  | "--success-2"
+  | "--success-3"
+  | "--gray-1"
+  | "--gray-2"
+  | "--gray-3";
+
+// export type
+
+const brand: Record<
+  | "primary"
+  | "secondary"
+  | "warning"
+  | "border"
+  | "danger"
+  | "info"
+  | "success"
+  | "customGray"
+  | "defaultTextColor"
+  | "bgMode"
+  | "borderMode",
+  Record<"mild" | "moderate" | "severe", `var(${RootColors})`>
+> = {
+  bgMode: "var(--bg-mode)" as any,
+  borderMode: "var(--border-mode)" as any,
+  defaultTextColor: "var(--default-text-color)" as any,
+  primary: {
+    mild: "var(--primary-1)",
+    moderate: "var(--primary-2)",
+    severe: "var(--primary-3)",
+  },
+  secondary: {
+    mild: "var(--secondary-1)",
+    moderate: "var(--secondary-2)",
+    severe: "var(--secondary-3)",
+  },
+  warning: {
+    mild: "var(--warning-1)",
+    moderate: "var(--warning-2)",
+    severe: "var(--warning-3)",
+  },
+  border: {
+    mild: "var(--border-1)",
+    moderate: "var(--border-2)",
+    severe: "var(--border-3)",
+  },
+  danger: {
+    mild: "var(--danger-1)",
+    moderate: "var(--danger-2)",
+    severe: "var(--danger-3)",
+  },
+  info: {
+    mild: "var(--info-1)",
+    moderate: "var(--info-2)",
+    severe: "var(--info-3)",
+  },
+  success: {
+    mild: "var(--success-1)",
+    moderate: "var(--success-2)",
+    severe: "var(--success-3)",
+  },
+  customGray: {
+    mild: "var(--gray-1)",
+    moderate: "var(--gray-2)",
+    severe: "var(--gray-3)",
+  },
+};
+
+// type ExtractRootColors<T> = T extends `var(${infer U})` ? U : never;
+
+// export type typeKColors = `var(${ExtractRootColors<
+//   | (typeof brand)['defaultTextColor']
+//   | (typeof brand)[Exclude<
+//       keyof typeof brand,
+//       'defaultTextColor'
+//     >][keyof Record<'mild' | 'moderate' | 'severe', `var(${RootColors})`>]
+// >})`;
+
+export type TypeKColors = `var(${RootColors})`;
+
+const KColors = {
+  ...brand,
+  white: "var(--white-base)" as any,
+  black: "var(--black-base)" as any,
+};
+
+export default KColors;
+
+// generate-colors.js

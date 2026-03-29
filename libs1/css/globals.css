@@ -1,0 +1,202 @@
+/* ===========================
+   Light Theme (default)
+   =========================== */
+:root {
+  /* Base backgrounds */
+  --bg-mode: #ffffff;
+  --white-base: #ffffff;
+  --black-base: #000000;
+
+  /* Surface layers — use for cards, modals, popovers */
+  --surface-1: #ffffff;
+  --surface-2: #f7f8fa;
+  --surface-3: #eef0f3;
+
+  /* Sidebar */
+  --sidebar-bg: #f4f5f7;
+  --sidebar-text: #333940;
+  --sidebar-hover: #e8eaed;
+  --sidebar-active: #dfe2e6;
+
+  /* Input / Form */
+  --input-bg: #ffffff;
+  --input-border: #d0d5dd;
+  --input-text: #1d2433;
+  --input-placeholder: #98a2b3;
+  --input-focus-border: #13a89e;
+
+  /* Text */
+  --default-text-color: #1d2433;
+  --text-primary: #ffffff;
+  --text-secondary: #475467;
+  --text-muted: #98a2b3;
+
+  /* Primary — teal */
+  --primary-1: #51ebe1;
+  --primary-2: #13a89e;
+  --primary-3: #006f3c;
+
+  /* Secondary — red */
+  --secondary-1: #f87171;
+  --secondary-2: #c91a25;
+  --secondary-3: #991b1b;
+
+  /* Borders */
+  --border-mode: #dddedf;
+  --border-1: #efefef;
+  --border-2: #dddedf;
+  --border-3: #a8adaf;
+
+  /* Danger */
+  --danger-1: #f88e86;
+  --danger-2: #f44336;
+  --danger-3: #d0190b;
+
+  /* Info */
+  --info-1: #88bfdd;
+  --info-2: #3995c5;
+  --info-3: #2c7196;
+
+  /* Success */
+  --success-1: #74fdbc;
+  --success-2: #41fd9a;
+  --success-3: #2de27f;
+
+  /* Warning */
+  --warning-1: #ffc266;
+  --warning-2: #ff9800;
+  --warning-3: #c27400;
+
+  /* Gray */
+  --gray-1: #747b7e;
+  --gray-2: #5c6366;
+  --gray-3: #393e40;
+
+  /* Card */
+  --card-bg: #ffffff;
+  --card-border: #e4e7ec;
+  --card-shadow: rgba(16, 24, 40, 0.05);
+
+  /* Scrollbar */
+  --scrollbar-track: #f1f1f1;
+  --scrollbar-thumb: #c1c1c1;
+  --scrollbar-thumb-hover: #a1a1a1;
+}
+
+/* ===========================
+   Dark Theme
+   =========================== */
+.dark {
+  /* Base backgrounds */
+  --bg-mode: #0f1117;
+  --white-base: #ffffff;
+  --black-base: #000000;
+
+  /* Surface layers — darker cards, modals, popovers */
+  --surface-1: #161922;
+  --surface-2: #1c2030;
+  --surface-3: #252a3a;
+
+  /* Sidebar */
+  --sidebar-bg: #111420;
+  --sidebar-text: #c4c9d4;
+  --sidebar-hover: #1c2030;
+  --sidebar-active: #252a3a;
+
+  /* Input / Form */
+  --input-bg: #1c2030;
+  --input-border: #2e3446;
+  --input-text: #e4e7ec;
+  --input-placeholder: #5a6278;
+  --input-focus-border: #51ebe1;
+
+  /* Text */
+  --default-text-color: #e4e7ec;
+  --text-primary: #ffffff;
+  --text-secondary: #a0aab8;
+  --text-muted: #5a6278;
+
+  /* Primary — teal (brighter for dark bg) */
+  --primary-1: #6ef7ed;
+  --primary-2: #2cc4ba;
+  --primary-3: #0b655f;
+
+  /* Secondary — red (softer for dark bg) */
+  --secondary-1: #ff8a8a;
+  --secondary-2: #e8434f;
+  --secondary-3: #b91c1c;
+
+  /* Borders — muted for dark surfaces */
+  --border-mode: #2e3446;
+  --border-1: #1e2236;
+  --border-2: #2e3446;
+  --border-3: #3d4558;
+
+  /* Danger */
+  --danger-1: #fca5a5;
+  --danger-2: #f87171;
+  --danger-3: #ef4444;
+
+  /* Info */
+  --info-1: #93c5fd;
+  --info-2: #60a5fa;
+  --info-3: #3b82f6;
+
+  /* Success */
+  --success-1: #86efac;
+  --success-2: #4ade80;
+  --success-3: #22c55e;
+
+  /* Warning */
+  --warning-1: #fde68a;
+  --warning-2: #fbbf24;
+  --warning-3: #f59e0b;
+
+  /* Gray */
+  --gray-1: #9ca3af;
+  --gray-2: #6b7280;
+  --gray-3: #4b5563;
+
+  /* Card */
+  --card-bg: #161922;
+  --card-border: #2e3446;
+  --card-shadow: rgba(0, 0, 0, 0.4);
+
+  /* Scrollbar */
+  --scrollbar-track: #1c2030;
+  --scrollbar-thumb: #3d4558;
+  --scrollbar-thumb-hover: #4f5a72;
+}
+
+/* ===========================
+   Base Styles
+   =========================== */
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--bg-mode);
+  color: var(--default-text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Custom scrollbar for dark theme */
+.dark ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 4px;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover);
+}
+
+.flex-between {
+  @apply flex justify-between items-center;
+}

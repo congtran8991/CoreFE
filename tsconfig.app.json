@@ -1,0 +1,71 @@
+{
+  "compilerOptions": {
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": [
+      "ES2020",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "module": "ESNext",
+    "skipLibCheck": true,
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "isolatedModules": true,
+    "moduleDetection": "force",
+    "noEmit": true,
+    "jsx": "react-jsx",
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedSideEffectImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": ".",
+    "paths": {
+      "@component/*": [
+        "src/component/*"
+      ],
+      "@page/*": [
+        "src/page/*"
+      ],
+      "@constants/*": [
+        "src/constants/*"
+      ],
+      "@hooks/*": [
+        "src/hooks/*"
+      ],
+      "@utils/*": [
+        "src/utils/*"
+      ],
+      "@containers/*": [
+        "src/containers/*"
+      ],
+      "@service/*": [
+        "src/service/*"
+      ],
+      "@uikit": [
+        "libs1/uikit"
+      ],
+      "@uikit/*": [
+        "libs1/uikit/*"
+      ],
+      "@constants-libs": [
+        "libs1/constants"
+      ],
+      "@constants-libs/*": [
+        "libs1/constants/*"
+      ]
+    }
+  },
+  "include": [
+    "src",
+    "libs1"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
