@@ -1,23 +1,26 @@
 {
   "files": [],
   "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
-  ],
-  "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["src/*"],
-      "@component/*": ["src/component/*"],
-      "@page/*": ["src/page/*"]
+    {
+      "path": "./tsconfig.app.json"
     },
-    "forceConsistentCasingInFileNames": true,
-    "composite": true,
-    "noEmit": true
-  }
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ],
+  // "compilerOptions": {
+  //   "baseUrl": ".",
+  //   "paths": {
+  //     "@/*": ["src/*"],
+  //     "@component/*": ["src/component/*"],
+  //     "@page/*": ["src/page/*"]
+  //   },
+  //   "forceConsistentCasingInFileNames": true,
+  //   "composite": true,
+  //   "noEmit": true
+  // }
   // "include": ["src"]
 }
-
 // {
 //   "compilerOptions": {
 //     "target": "es5",

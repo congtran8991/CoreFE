@@ -30,6 +30,7 @@ export default defineConfig({
     watch: {
       ignored: ["**/node_modules/**", "**/dist/**", "**/.git/**"],
     },
+    // warmup chuẩn bị file trước khi dev, khi yarn dev -> sẽ load các file này trước
     warmup: {
       clientFiles: ["./src/main.tsx", "./src/App.tsx", "./src/component/layout/MainLayout.tsx"],
     },
