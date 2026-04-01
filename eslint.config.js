@@ -6,8 +6,9 @@ import tseslint from "typescript-eslint";
 
 export default tseslint.config(
   { ignores: ["dist"] },
+  js.configs.recommended,
+  ...tseslint.configs.recommended,
   {
-    extends: [js.configs.recommended, ...tseslint.configs.recommended],
     files: ["**/*.{ts,tsx}"],
     languageOptions: {
       ecmaVersion: 2020,
@@ -19,7 +20,7 @@ export default tseslint.config(
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
-      "react-hooks/rules-of-hooks": "off", // Báo lỗi khi vi phạm quy tắc hooks
+      "react-hooks/rules-of-hooks": "error", // Thêm báo lỗi khi vi phạm quy tắc hooks
       "react-hooks/exhaustive-deps": "warn", // Cảnh báo nếu thiếu dependencies
       "@typescript-eslint/no-unused-vars": "off",
       "no-unused-vars": "off",

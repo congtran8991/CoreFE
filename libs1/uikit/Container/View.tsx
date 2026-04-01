@@ -17,7 +17,7 @@ const View = forwardRef<HTMLDivElement, KContainerViewProps>((props, ref) => {
       ...style,
     };
     return { innerStyle, innerProps: mProps };
-  }, []);
+  }, [mProps, mStyle.layout, mStyle.spacing, mStyle.textStyle, style]);
 
   return (
     <Box
