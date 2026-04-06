@@ -77,7 +77,7 @@ const KCard = forwardRef<HTMLDivElement, KCardProps>((props, ref) => {
         </View>
       </View>
     );
-  }, [header, sizeConfig]);
+  }, [header, sizeConfig.fontSize, sizeConfig.gap, sizeConfig.iconButtonSize, sizeConfig.iconMaxHeight, sizeConfig.padding, typo]);
 
   const _content = useMemo(() => {
     return <View padding={sizeConfig.padding}>{children}</View>;

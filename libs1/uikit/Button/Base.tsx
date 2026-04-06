@@ -1,5 +1,5 @@
 import { Button, CircularProgress } from "@mui/material";
-import React, { CSSProperties, memo, useMemo } from "react";
+import React, { memo, useMemo } from "react";
 import styleHelper from "../styleHelper";
 import { KButtonProps } from "../types";
 import KLabel from "../Label";
@@ -38,14 +38,13 @@ const Base = React.forwardRef<HTMLButtonElement, KButtonProps>(
                 ...style,
             };
             return { innerStyle, innerProps: mProps };
-        }, [mStyle, style]);
+        }, [mProps, mStyle.layout, mStyle.spacing, mStyle.textStyle, style]);
 
 
 
 
 
-        const renderLoading = useMemo
-            (() => {
+        const renderLoading = useMemo(() => {
                 return (
                     <>
                         <CircularProgress
@@ -55,7 +54,7 @@ const Base = React.forwardRef<HTMLButtonElement, KButtonProps>(
                         {loadingText}
                     </>
                 );
-            }, [loading, loadingText, size]);
+            }, [loadingText]);
 
         return (
             <Button

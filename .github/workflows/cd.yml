@@ -1,0 +1,73 @@
+name: CD (Deployment)
+
+on:
+  push:
+    branches: [ "main" ]
+
+# Concurrency to prevent multiple deployments at the same time
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    # Example environment (optional)
+    # environment: production
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Use Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20
+        cache: 'yarn'
+
+    - name: Install Dependencies
+      run: yarn install --frozen-lockfile
+
+    - name: Lint
+      run: yarn lint
+
+    - name: Build Production
+      run: yarn build
+
+    # --- Option 1: Docker Deployment (standard for many setups) ---
+    # - name: Log in to GitHub Container Registry
+    #   uses: docker/login-action@v3
+    #   with:
+    #     registry: ghcr.io
+    #     username: ${{ github.actor }}
+    #     password: ${{ secrets.GITHUB_TOKEN }}
+    #
+    # - name: Build and Push Docker Image
+    #   uses: docker/build-push-action@v5
+    #   with:
+    #     context: .
+    #     push: true
+    #     tags: ghcr.io/${{ github.repository }}:latest
+
+    # --- Option 2: SSH Deployment (to a private VPS) ---
+    # - name: Deploy via SSH
+    #   uses: appleboy/ssh-action@master
+    #   with:
+    #     host: ${{ secrets.SSH_HOST }}
+    #     username: ${{ secrets.SSH_USER }}
+    #     key: ${{ secrets.SSH_KEY }}
+    #     script: |
+    #       cd /path/to/project
+    #       git pull origin main
+    #       docker compose up -d --build
+
+    # --- Option 3: GitHub Pages (if it's a static site) ---
+    # - name: Deploy to GitHub Pages
+    #   uses: peaceiris/actions-gh-pages@v3
+    #   with:
+    #     github_token: ${{ secrets.GITHUB_TOKEN }}
+    #     publish_dir: ./dist
+
+    - name: Deployment Success Notification
+      run: echo "Deployment process completed successfully!"
