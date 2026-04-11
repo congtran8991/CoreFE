@@ -31,3 +31,7 @@ jobs:
       
     - name: Build
       run: yarn build
+
+    # - name: Build Docker image (Check)
+    #   # This step ensures the Dockerfile and docker-compose.yml match the source code changes
+    #   run: docker compose build
