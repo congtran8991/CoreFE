@@ -35,14 +35,16 @@ jobs:
           # ssh -vT git@github.com
 
           echo "📥 Pulling latest code..."
-          GIT_SSH_COMMAND="ssh -i /home/ec2-user/.ssh/id_ed25519 -o StrictHostKeyChecking=no" \
           git pull origin main || { echo "❌ Git pull failed"; exit 1; }
+
+          # GIT_SSH_COMMAND="ssh -i /home/ec2-user/.ssh/id_ed25519 -o StrictHostKeyChecking=no" \
+          # git pull origin main || { echo "❌ Git pull failed"; exit 1; }
 
           echo "🏗️ Building and starting containers..."
           docker compose up -d --build --remove-orphans || { echo "❌ Docker compose failed"; exit 1; }
 
-          echo "🧹 Cleaning up old images..."
-          docker image prune -af || echo "⚠️ Image prune warning (non-critical)"
+          # echo "🧹 Cleaning up old images..."
+          # docker image prune -af || echo "⚠️ Image prune warning (non-critical)"
 
           echo "⏳ Waiting for service to start..."
           sleep 10
