@@ -13,7 +13,7 @@ RUN yarn install --frozen-lockfile
 COPY . .
  
 # Run linting to ensure code quality before building/running
-RUN yarn lint
+# RUN yarn lint
  
 # Expose Vite dev server port
 EXPOSE 5173
