@@ -27,6 +27,9 @@ jobs:
           echo "📂 Navigating to project directory..."
           cd CoreFE || { echo "❌ Failed to cd into CoreFE"; exit 1; }
 
+          echo "🔍 Debug SSH GitHub..."
+          ssh -vT git@github.com
+
           echo "🔑 Setting up SSH agent..."
           GIT_SSH_COMMAND="ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no" \
           
