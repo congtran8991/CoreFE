@@ -32,7 +32,7 @@ jobs:
           cd CoreFE || { echo "❌ Failed to cd into CoreFE"; exit 1; }
 
           echo "🏷️ Tagging current image as backup..."
-          docker tag corefe-app:latest corefe-app:backup 2>/dev/null || echo "⚠️ No existing image to backup"
+          docker tag corefe-core-fe:latest corefe-core-fe:backup 2>/dev/null || echo "⚠️ No existing image to backup"
 
 
           # echo "🔍 Debug SSH GitHub..."
