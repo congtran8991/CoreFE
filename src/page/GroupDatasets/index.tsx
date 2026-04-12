@@ -152,7 +152,7 @@ const ListGroupDataset = () => {
     <>
       <KContainer.Card
         header={{
-          title: "Group 177sd4e3tds14d77799",
+          title: "Group 177",
           border: true,
           color: "#cb8609",
           bgColorIcon: "#cb8609",
