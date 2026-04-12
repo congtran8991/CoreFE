@@ -26,6 +26,10 @@ jobs:
           
           echo "📂 Navigating to project directory..."
           cd CoreFE || { echo "❌ Failed to cd into CoreFE"; exit 1; }
+
+          echo "🔑 Setting up SSH agent..."
+          eval "$(ssh-agent -s)"
+          ssh-add ~/.ssh/id_ed25519 2>/dev/null || echo "SSH key already added or not needed"
           
           echo "📥 Pulling latest code..."
           git pull origin main || { echo "❌ Git pull failed"; exit 1; }
