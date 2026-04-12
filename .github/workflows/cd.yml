@@ -31,6 +31,10 @@ jobs:
           echo "📂 Navigating to project directory..."
           cd CoreFE || { echo "❌ Failed to cd into CoreFE"; exit 1; }
 
+          echo "🏷️ Tagging current image as backup..."
+          docker tag corefe-app:latest corefe-app:backup 2>/dev/null || echo "⚠️ No existing image to backup"
+
+
           # echo "🔍 Debug SSH GitHub..."
           # ssh -vT git@github.com
 
@@ -43,8 +47,8 @@ jobs:
           echo "🏗️ Building and starting containers..."
           docker compose up -d --build --remove-orphans || { echo "❌ Docker compose failed"; exit 1; }
 
-          # echo "🧹 Cleaning up old images..."
-          # docker image prune -af || echo "⚠️ Image prune warning (non-critical)"
+          echo "🧹 Cleaning up old images..."
+          docker image prune -a || echo "⚠️ Image prune warning (non-critical)"
 
           echo "⏳ Waiting for service to start..."
           sleep 10
