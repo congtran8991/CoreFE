@@ -4,7 +4,6 @@ on:
   push:
     branches: [ "main" ]
 
-# Concurrency to prevent multiple deployments at the same time
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -12,7 +11,7 @@ concurrency:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    
+
     steps:
     - name: Deploy to EC2
       uses: appleboy/ssh-action@master
@@ -21,49 +20,44 @@ jobs:
         username: ${{ secrets.EC2_USER }}
         key: ${{ secrets.EC2_SSH_KEY }}
         script: |
-          set -e  # Exit on error
-          set -o pipefail  # Exit on pipe errors
-          
+          set -e
+          set -o pipefail
+
           echo "📂 Navigating to project directory..."
           cd CoreFE || { echo "❌ Failed to cd into CoreFE"; exit 1; }
 
-          # echo "🔍 Debug SSH GitHub..."
-          # ssh -vT git@github.com
-
-          echo "🔑 Setting up SSH agent..."
-          GIT_SSH_COMMAND="ssh -i /home/ec2-user/.ssh/id_ed25519 -o StrictHostKeyChecking=no"
-          
           echo "📥 Pulling latest code..."
+          GIT_SSH_COMMAND="ssh -i /home/ec2-user/.ssh/id_ed25519 -o StrictHostKeyChecking=no" \
           git pull origin main || { echo "❌ Git pull failed"; exit 1; }
-          
-          echo "🏗️  Building and starting containers..."
+
+          echo "🏗️ Building and starting containers..."
           docker compose up -d --build --remove-orphans || { echo "❌ Docker compose failed"; exit 1; }
-          
+
           echo "🧹 Cleaning up old images..."
-          docker image prune -af || echo "⚠️  Image prune warning (non-critical)"
-          
+          docker image prune -af || echo "⚠️ Image prune warning (non-critical)"
+
           echo "⏳ Waiting for service to start..."
           sleep 10
-          
+
           echo "🔍 Checking container status..."
           docker compose ps
-          
+
           echo "🏥 Health check..."
           MAX_RETRIES=5
           RETRY_COUNT=0
-          
+
           while [ $RETRY_COUNT -lt $MAX_RETRIES ]; do
             if curl -f http://localhost:5173/ > /dev/null 2>&1; then
               echo "✅ Health check passed!"
               echo "🎉 Deployment successful!"
               exit 0
             fi
-            
+
             RETRY_COUNT=$((RETRY_COUNT + 1))
             echo "⏳ Retry $RETRY_COUNT/$MAX_RETRIES..."
             sleep 3
           done
-          
+
           echo "❌ Health check failed after $MAX_RETRIES attempts"
           echo "📋 Container logs:"
           docker compose logs --tail=50
