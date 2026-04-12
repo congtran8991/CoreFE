@@ -21,22 +21,44 @@ jobs:
         username: ${{ secrets.EC2_USER }}
         key: ${{ secrets.EC2_SSH_KEY }}
         script: |
-          cd CoreFE
+          set -e  # Exit on error
+          set -o pipefail  # Exit on pipe errors
           
-          # Pull latest code
-          git pull origin main
+          echo "📂 Navigating to project directory..."
+          cd CoreFE || { echo "❌ Failed to cd into CoreFE"; exit 1; }
           
-          # Build and restart containers with near-zero downtime
-          # --build: Build images before starting containers.
-          # --remove-orphans: Remove containers for services not defined in the Compose file.
-          docker compose up -d --build --remove-orphans
+          echo "📥 Pulling latest code..."
+          git pull origin main || { echo "❌ Git pull failed"; exit 1; }
           
-          # Clean up unused images to save disk space
-          docker image prune -af
+          echo "🏗️  Building and starting containers..."
+          docker compose up -d --build --remove-orphans || { echo "❌ Docker compose failed"; exit 1; }
           
-          # Health check (localhost is more robust than hardcoded IP)
-          echo "Waiting for service to start..."
-          sleep 5
+          echo "🧹 Cleaning up old images..."
+          docker image prune -af || echo "⚠️  Image prune warning (non-critical)"
+          
+          echo "⏳ Waiting for service to start..."
+          sleep 10
+          
+          echo "🔍 Checking container status..."
           docker compose ps
-          curl -f http://localhost:5173/ || { echo "Health check failed"; exit 1; }
-          echo "Deployment successful!"
+          
+          echo "🏥 Health check..."
+          MAX_RETRIES=5
+          RETRY_COUNT=0
+          
+          while [ $RETRY_COUNT -lt $MAX_RETRIES ]; do
+            if curl -f http://localhost:5173/ > /dev/null 2>&1; then
+              echo "✅ Health check passed!"
+              echo "🎉 Deployment successful!"
+              exit 0
+            fi
+            
+            RETRY_COUNT=$((RETRY_COUNT + 1))
+            echo "⏳ Retry $RETRY_COUNT/$MAX_RETRIES..."
+            sleep 3
+          done
+          
+          echo "❌ Health check failed after $MAX_RETRIES attempts"
+          echo "📋 Container logs:"
+          docker compose logs --tail=50
+          exit 1
