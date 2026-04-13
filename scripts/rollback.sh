@@ -22,6 +22,6 @@ echo "🧹 Cleaning up dangling images..."
 docker image prune -f
 
 echo "🚀 Starting containers with backup image..."
-docker compose up -d
+docker compose up -d --force-recreate
 
 echo "✅ Rollback to $BACKUP_TAG successful!"
