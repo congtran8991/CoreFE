@@ -8,7 +8,8 @@ const GroupDatasetVersions = React.lazy(
 );
 const ListGroupDataset = React.lazy(() => import("@page/GroupDatasets"));
 
-import MainLayout from "@component/layout/MainLayout";
+// import MainLayout from "@component/layout/MainLayout";
+const MainLayout = React.lazy(() => import("@component/layout/MainLayout"));
 import Portal from "src/containers/Portal";
 import { popperRef, popupRef } from "./constants";
 

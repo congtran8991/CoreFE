@@ -8,8 +8,7 @@ if [ -z "$1" ]; then
   exit 1
 fi
 
-DATE=$1
-BACKUP_TAG="backup_$DATE"
+BACKUP_TAG=$1
 
 echo "🔄 Rolling back to $BACKUP_TAG..."
 
