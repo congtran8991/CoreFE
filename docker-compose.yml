@@ -5,9 +5,9 @@ services:
       dockerfile: Dockerfile
     image: corefe-core-fe:latest
     container_name: core-fe
-    volumes:
-      - .:/app
-      - core-fe-node-modules:/app/node_modules
+    # volumes:
+    #   - .:/app
+    #   - core-fe-node-modules:/app/node_modules
     ports:
       - "5173:5173"
     command: yarn dev --host
