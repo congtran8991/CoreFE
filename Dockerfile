@@ -15,7 +15,7 @@ COPY . .
 RUN yarn build
 
 # Cài serve để chạy static
-RUN yarn global add serve
+RUN yarn global add serve@14
  
 # Run linting to ensure code quality before building/running
 # RUN yarn lint
