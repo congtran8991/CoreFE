@@ -35,6 +35,10 @@ export default defineConfig({
       clientFiles: ["./src/main.tsx", "./src/App.tsx", "./src/component/layout/MainLayout.tsx"],
     },
   },
+  // optimizeDeps dùng tối ưu các thư viện khi chạy yarn dev
+  // khi chạy yarn dev thì các thư viện trong includes sẽ được esbuild tối ưu thành 1 file js.
+  // VD. react -> react.js, mui -> mui.js, react-router -> react-router.js, react-router-dom -> react-router-dom.js, @mui/material -> @mui/material.js, @mui/icons-material -> @mui/icons-material.js, @emotion/react -> @emotion/react.js, @emotion/styled -> @emotion/styled.js, @tanstack/react-query -> @tanstack/react-query.js 
+  // khi browser load thay vì chạy MUI 100file thì browser chỉ call 1 file
   optimizeDeps: {
     include: [
       "react",
@@ -63,8 +67,37 @@ export default defineConfig({
       },
       output: {
         manualChunks(id) {
+          // React core
+          if (id.includes("node_modules/react/") || id.includes("node_modules/react-dom/")) {
+            return "vendor-react";
+          }
+          // React Router
+          if (id.includes("node_modules/react-router") || id.includes("node_modules/@remix-run")) {
+            return "vendor-router";
+          }
+          // MUI + Emotion
+          if (id.includes("node_modules/@mui/") || id.includes("node_modules/@emotion/")) {
+            return "vendor-mui";
+          }
+          // React Query
+          if (id.includes("node_modules/@tanstack/")) {
+            return "vendor-query";
+          }
+          // React Hook Form + resolvers + yup
+          if (
+            id.includes("node_modules/react-hook-form") ||
+            id.includes("node_modules/@hookform/") ||
+            id.includes("node_modules/yup")
+          ) {
+            return "vendor-form";
+          }
+          // Axios + query-string
+          if (id.includes("node_modules/axios") || id.includes("node_modules/query-string")) {
+            return "vendor-http";
+          }
+          // Các thư viện còn lại
           if (id.includes("node_modules")) {
-            return "vendor";
+            return "vendor-misc";
           }
         },
       },
