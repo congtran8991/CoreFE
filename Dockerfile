@@ -11,6 +11,11 @@ RUN yarn install --frozen-lockfile
  
 # Copy the rest of the project (source code)
 COPY . .
+
+RUN yarn build
+
+# Cài serve để chạy static
+RUN yarn global add serve
  
 # Run linting to ensure code quality before building/running
 # RUN yarn lint
@@ -19,4 +24,7 @@ COPY . .
 EXPOSE 5173
  
 # Start the dev server (can be overridden by docker-compose)
-CMD ["yarn", "dev", "--host"]
+# CMD ["yarn", "dev", "--host"]
+# RUN yarn build
+# CMD ["yarn", "start"]
+CMD ["npx", "serve@14", "-s", "dist", "-l", "5173"]
