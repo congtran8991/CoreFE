@@ -58,6 +58,9 @@ export default defineConfig({
   build: {
     chunkSizeWarningLimit: 1600,
     rollupOptions: {
+      treeshake: {
+        moduleSideEffects: false, // ⚠️ Cẩn thận nếu có side effects như import CSS
+      },
       output: {
         manualChunks(id) {
           if (id.includes("node_modules")) {
