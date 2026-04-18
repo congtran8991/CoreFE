@@ -66,39 +66,33 @@ export default defineConfig({
         moduleSideEffects: false, // ⚠️ Cẩn thận nếu có side effects như import CSS
       },
       output: {
-        manualChunks(id) {
+        manualChunks: {
           // React core
-          if (id.includes("node_modules/react/") || id.includes("node_modules/react-dom/")) {
-            return "vendor-react";
-          }
+          'vendor-react': ['react', 'react-dom'],
+
           // React Router
-          if (id.includes("node_modules/react-router") || id.includes("node_modules/@remix-run")) {
-            return "vendor-router";
-          }
-          // MUI + Emotion
-          if (id.includes("node_modules/@mui/") || id.includes("node_modules/@emotion/")) {
-            return "vendor-mui";
-          }
+          'vendor-router': ['react-router-dom'],
+
+          // MUI
+          'vendor-mui': [
+            '@mui/material',
+            '@mui/icons-material',
+            '@emotion/react',
+            '@emotion/styled',
+          ],
+
           // React Query
-          if (id.includes("node_modules/@tanstack/")) {
-            return "vendor-query";
-          }
-          // React Hook Form + resolvers + yup
-          if (
-            id.includes("node_modules/react-hook-form") ||
-            id.includes("node_modules/@hookform/") ||
-            id.includes("node_modules/yup")
-          ) {
-            return "vendor-form";
-          }
-          // Axios + query-string
-          if (id.includes("node_modules/axios") || id.includes("node_modules/query-string")) {
-            return "vendor-http";
-          }
-          // Các thư viện còn lại
-          if (id.includes("node_modules")) {
-            return "vendor-misc";
-          }
+          'vendor-query': ['@tanstack/react-query'],
+
+          // Form
+          'vendor-form': [
+            'react-hook-form',
+            '@hookform/resolvers',
+            'yup',
+          ],
+
+          // HTTP
+          'vendor-http': ['axios'],
         },
       },
     },
