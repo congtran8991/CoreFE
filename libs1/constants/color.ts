@@ -101,10 +101,33 @@ const brand: Record<
 
 export type TypeKColors = `var(${RootColors})`;
 
+export type KAlphaLevel = 5 | 8 | 10 | 16 | 24 | 32 | 48;
+export type KAlphaVariants = Record<KAlphaLevel, string>;
+
+/** Tạo opacity variants từ CSS variable dùng color-mix() */
+const createAlpha = (colorVar: `var(${RootColors})`): KAlphaVariants => ({
+  5: `color-mix(in srgb, ${colorVar} 5%, transparent)`,
+  8: `color-mix(in srgb, ${colorVar} 8%, transparent)`,
+  10: `color-mix(in srgb, ${colorVar} 10%, transparent)`,
+  16: `color-mix(in srgb, ${colorVar} 16%, transparent)`,
+  24: `color-mix(in srgb, ${colorVar} 24%, transparent)`,
+  32: `color-mix(in srgb, ${colorVar} 32%, transparent)`,
+  48: `color-mix(in srgb, ${colorVar} 48%, transparent)`,
+});
+
 const KColors = {
   ...brand,
   white: "var(--white-base)" as any,
   black: "var(--black-base)" as any,
+
+  // Opacity variants — dùng màu `mild` (nhạt nhất) làm base
+  primary: { ...brand.primary, alpha: createAlpha("var(--primary-1)") },
+  secondary: { ...brand.secondary, alpha: createAlpha("var(--secondary-1)") },
+  warning: { ...brand.warning, alpha: createAlpha("var(--warning-1)") },
+  danger: { ...brand.danger, alpha: createAlpha("var(--danger-1)") },
+  info: { ...brand.info, alpha: createAlpha("var(--info-1)") },
+  success: { ...brand.success, alpha: createAlpha("var(--success-1)") },
+  customGray: { ...brand.customGray, alpha: createAlpha("var(--gray-1)") },
 };
 
 export default KColors;

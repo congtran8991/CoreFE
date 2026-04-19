@@ -6,6 +6,10 @@ import { TypeTypography } from "./typography";
 
 export type KButtonSize = 'xlg' | 'lg' | 'md' | 'sm' | 'xs';
 
+export type KButtonLabelWeight = 'normal' | 'medium' | 'bold';
+
+export type KKind = 'primary' | 'secondary' | 'success' | 'danger' | 'info' | 'warning';
+
 export type KRadius =
   | 'x' // 4px
   | '2x' // 8px
@@ -232,21 +236,20 @@ export type KParagraphProps = Omit<KTextProps, "isParagraph">
 
 export interface KButtonProps
   extends Omit<ButtonProps, "color" | "size">,
-  TypeSpacing, TypeStyleText {
+  TypeSpacing, TypeStyleText, TypeStyling {
   /** MUI button variant */
   variant?: "contained" | "outlined" | "text";
   /** MUI button size */
   size?: KButtonSize
+  /** MUI button label weight */
+  weight?: KButtonLabelWeight;
   /** MUI color preset or custom color string */
   color?: "primary" | "secondary" | "success" | "error" | "info" | "warning" | "inherit";
   /** Custom background color (overrides color prop) */
-  bgColor?: string | TypeKColors;
+  background?: string | TypeKColors;
   /** Custom text color */
   textColor?: string | TypeKColors;
-  /** Custom border color (for outlined variant) */
-  borderColor?: string | TypeKColors;
-  /** Custom border radius */
-  borderRadius?: string | number;
+  iconColor?: string | TypeKColors;
   /** Show loading spinner */
   loading?: boolean;
   /** Loading text, defaults to no text (spinner only) */
@@ -254,9 +257,13 @@ export interface KButtonProps
   /** Make button full width */
   fullWidth?: boolean;
   /** Custom icon placed before children */
-  iconStart?: React.ReactNode;
+  iconStart?: TypeIcon;
   /** Custom icon placed after children */
-  iconEnd?: React.ReactNode;
+  iconEnd?: TypeIcon,
+  /** Kind of button */
+  kind?: KKind,
+  hasShadow?: boolean;
+  hasHover?: boolean;
 }
 
 export interface KAutocompleteProps extends KInputProps {

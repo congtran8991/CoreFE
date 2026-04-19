@@ -1,55 +1,10 @@
 import { CSSProperties } from "@mui/material";
-import { TypeLayout, TypeSpacing, TypeStyleText, TypeStyling } from "./types";
-import { KFontWeights } from "libs1/constants/fonts";
+import { KRadius, TypeLayout, TypeSpacing, TypeStyleText, TypeStyling } from "./types";
 
 class Typography {
   private _KFontscale = 1;
 
   Page: CSSProperties = {};
-
-  BreadcrumbTitle: CSSProperties = {};
-
-  TableHeader: CSSProperties = {};
-
-  Text4xLgBold: CSSProperties = {};
-  Text3xLgBold: CSSProperties = {};
-  Text2xLgBold: CSSProperties = {};
-  TextXLgBold: CSSProperties = {};
-  TextLgBold: CSSProperties = {};
-  TextXMdBold: CSSProperties = {};
-  TextMdBold: CSSProperties = {};
-  TextXNmBold: CSSProperties = {};
-  TextNmBold: CSSProperties = {};
-  TextSmBold: CSSProperties = {};
-  TextXsBold: CSSProperties = {};
-  Text2XsBold: CSSProperties = {};
-
-  Text4xLgMedium: CSSProperties = {};
-  Text3xLgMedium: CSSProperties = {};
-  Text2xLgMedium: CSSProperties = {};
-  TextXLgMedium: CSSProperties = {};
-  TextLgMedium: CSSProperties = {};
-  TextXMdMedium: CSSProperties = {};
-  TextMdMedium: CSSProperties = {};
-  TextXNmMedium: CSSProperties = {};
-  TextNmMedium: CSSProperties = {};
-  TextSmMedium: CSSProperties = {};
-  TextXsMedium: CSSProperties = {};
-  Text2XsMedium: CSSProperties = {};
-
-  Text4xLgNormal: CSSProperties = {};
-  Text3xLgNormal: CSSProperties = {};
-  Text2xLgNormal: CSSProperties = {};
-  TextXLgNormal: CSSProperties = {};
-  TextLgNormal: CSSProperties = {};
-  TextXMdNormal: CSSProperties = {};
-  TextMdNormal: CSSProperties = {};
-  TextXNmNormal: CSSProperties = {};
-  TextNmNormal: CSSProperties = {};
-  TextSmNormal: CSSProperties = {};
-  TextXsNormal: CSSProperties = {};
-  Text2XsNormal: CSSProperties = {};
-
 
   get KFontscale() {
     return this._KFontscale;
@@ -68,51 +23,6 @@ class Typography {
     // lineHeight,
     ...customStyle
   });
-
-  updateValue(KFontscale: number) {
-    this.BreadcrumbTitle = this.generateTextStyle(18, KFontWeights.medium, 1.4);
-
-    this.TableHeader = this.generateTextStyle(12, KFontWeights.medium, 1.75);
-
-    this.Text4xLgBold = this.generateTextStyle(28, KFontWeights.bold, 1.4);
-    this.Text3xLgBold = this.generateTextStyle(24, KFontWeights.bold, 1.4);
-    this.Text2xLgBold = this.generateTextStyle(20, KFontWeights.bold, 1.4);
-    this.TextXLgBold = this.generateTextStyle(18, KFontWeights.bold, 1.4);
-    this.TextLgBold = this.generateTextStyle(16, KFontWeights.bold, 1.4);
-    this.TextXMdBold = this.generateTextStyle(15, KFontWeights.bold, 1.4);
-    this.TextMdBold = this.generateTextStyle(14, KFontWeights.bold, 1.4);
-    this.TextXNmBold = this.generateTextStyle(13, KFontWeights.bold, 1.5);
-    this.TextNmBold = this.generateTextStyle(12, KFontWeights.bold, 1.5);
-    this.TextSmBold = this.generateTextStyle(11, KFontWeights.bold, 1.4);
-    this.TextXsBold = this.generateTextStyle(10, KFontWeights.bold, 1.4);
-    this.Text2XsBold = this.generateTextStyle(8, KFontWeights.bold, 1.4);
-
-    this.Text4xLgMedium = this.generateTextStyle(28, KFontWeights.medium, 1.4);
-    this.Text3xLgMedium = this.generateTextStyle(24, KFontWeights.medium, 1.4);
-    this.Text2xLgMedium = this.generateTextStyle(20, KFontWeights.medium, 1.4);
-    this.TextXLgMedium = this.generateTextStyle(18, KFontWeights.medium, 1.4);
-    this.TextLgMedium = this.generateTextStyle(16, KFontWeights.medium, 1.4);
-    this.TextXMdMedium = this.generateTextStyle(15, KFontWeights.medium, 1.4);
-    this.TextMdMedium = this.generateTextStyle(14, KFontWeights.medium, 1.4);
-    this.TextXNmMedium = this.generateTextStyle(13, KFontWeights.medium, 1.5);
-    this.TextNmMedium = this.generateTextStyle(12, KFontWeights.medium, 1.5);
-    this.TextSmMedium = this.generateTextStyle(11, KFontWeights.medium, 1.4);
-    this.TextXsMedium = this.generateTextStyle(10, KFontWeights.medium, 1.4);
-    this.Text2XsMedium = this.generateTextStyle(8, KFontWeights.medium, 1.4);
-
-    this.Text4xLgNormal = this.generateTextStyle(28, KFontWeights.regular, 1.4);
-    this.Text3xLgNormal = this.generateTextStyle(24, KFontWeights.regular, 1.4);
-    this.Text2xLgNormal = this.generateTextStyle(20, KFontWeights.regular, 1.4);
-    this.TextXLgNormal = this.generateTextStyle(18, KFontWeights.regular, 1.4);
-    this.TextLgNormal = this.generateTextStyle(16, KFontWeights.regular, 1.4);
-    this.TextXMdNormal = this.generateTextStyle(15, KFontWeights.regular, 1.4);
-    this.TextMdNormal = this.generateTextStyle(14, KFontWeights.regular, 1.4);
-    this.TextXNmNormal = this.generateTextStyle(13, KFontWeights.regular, 1.5);
-    this.TextNmNormal = this.generateTextStyle(12, KFontWeights.regular, 1.5);
-    this.TextSmNormal = this.generateTextStyle(11, KFontWeights.regular, 1.4);
-    this.TextXsNormal = this.generateTextStyle(10, KFontWeights.regular, 1.4);
-    this.Text2XsNormal = this.generateTextStyle(8, KFontWeights.regular, 1.4);
-  }
 }
 
 class styleHelper {
@@ -122,6 +32,28 @@ class styleHelper {
     });
     return obj;
   }
+
+  static mapKRadiusToNumber = (radius?: KRadius | 0) => {
+    const base = 4;
+    switch (radius) {
+      case 'x':
+        return base;
+      case '2x':
+        return base * 2;
+      case '3x':
+        return base * 3;
+      case '4x':
+        return base * 4;
+      case '6x':
+        return base * 6;
+      case 'round':
+        return 10000;
+      default:
+        return 0;
+    }
+  };
+
+
   static destructSpacing = (props: TypeSpacing = {}) => {
     const style: React.CSSProperties = {};
 
@@ -245,6 +177,27 @@ class styleHelper {
 
   static destructStylingProps = (props: TypeStyling) => {
     const style: React.CSSProperties = {};
+    if (props.background) {
+      style.background = props.background;
+    }
+    delete props.background;
+
+    if (props.br) {
+      style.borderRadius = this.mapKRadiusToNumber(props.br);
+    }
+    if (props.brTL) {
+      style.borderTopLeftRadius = this.mapKRadiusToNumber(props.brTL);
+    }
+    if (props.brTR) {
+      style.borderTopRightRadius = this.mapKRadiusToNumber(props.brTR);
+    }
+    if (props.brBL) {
+      style.borderBottomLeftRadius = this.mapKRadiusToNumber(props.brBL);
+    }
+    if (props.brBR) {
+      style.borderBottomRightRadius = this.mapKRadiusToNumber(props.brBR);
+    }
+    this.removeObjectProperties(props, ['br', 'brTL', 'brTR', 'brBL', 'brBR']);
 
     if (props.brW) {
       style.borderWidth = props.brW;
@@ -342,7 +295,6 @@ class styleHelper {
     return style;
   };
 
-
   static destructStyles = <T extends object>(props: T) => {
     const layout = this.destructLayout(props);
     const textStyle = this.destructStylesText(props);
@@ -362,3 +314,14 @@ class styleHelper {
 }
 
 export default styleHelper;
+
+export const KRadiusValue = {
+  0: 0,
+  x: styleHelper.mapKRadiusToNumber('x'),
+  '2x': styleHelper.mapKRadiusToNumber('2x'),
+  '3x': styleHelper.mapKRadiusToNumber('3x'),
+  '4x': styleHelper.mapKRadiusToNumber('4x'),
+  '6x': styleHelper.mapKRadiusToNumber('6x'),
+  round: styleHelper.mapKRadiusToNumber('round')
+};
+

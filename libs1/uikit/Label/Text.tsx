@@ -28,7 +28,7 @@ const KText = (props: KTextProps) => {
       innerProps: p
     }
 
-  }, [])
+  }, [rest, style, typo, typos])
 
   const Wrapper = isParagraph ? "p" : "span";
 

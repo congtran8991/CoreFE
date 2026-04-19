@@ -59,14 +59,14 @@ class Typography {
     generateTextStyle = (
         KFontsize: number,
         fontWeight: string | number,
-        lineHeight: number | string,
+        lineHeight: number | string = 1,
         factor = 1,
         customStyle: any = {}
     ): any => ({
         fontFamily: 'Roboto',
         fontSize: KFontsize * factor,
         fontWeight,
-        // lineHeight,
+        lineHeight,
         ...customStyle
     });
 

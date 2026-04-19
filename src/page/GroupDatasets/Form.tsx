@@ -1,9 +1,10 @@
 import * as yup from "yup";
 import { memo, useCallback } from "react";
-import { Button, Grid } from "@mui/material";
+import { Grid } from "@mui/material";
 import { Controller } from "react-hook-form";
 import { useResolverForm } from "@hooks/lib/useResolverForm";
 import { KInput, KForm, KButtons } from "@uikit";
+import { AbcOutlined } from "@mui/icons-material";
 // import Form from "@libs/Form";
 import {
   useMutationCreateGroupDataset,
@@ -68,7 +69,7 @@ const FormAddGroupDataset = ({ item }: { item: any }) => {
             render={({ field, fieldState: { error } }) => (
               <KInput.Base
                 {...field}
-                size="medium"
+                size="small"
                 label="Pipeline Name"
                 message={error?.message}
                 inputLabel={{ shrink: true }}
@@ -80,7 +81,7 @@ const FormAddGroupDataset = ({ item }: { item: any }) => {
         </Grid>
 
         <Grid size={{ xs: 2 }}>
-          <KButtons.Base type="submit" loading={false} disabled={false} title={isEdit ? "Update" : "Create1ư"} />
+          <KButtons.Text size="md" kind="primary" loading={false} typo="Text2xLgBold" type="submit" iconStart={AbcOutlined} title={isEdit ? "Update" : "Create"} />
         </Grid>
       </Grid>
     </KForm>
