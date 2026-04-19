@@ -6,4 +6,4 @@ export { default as KButtons } from "./Button";
 
 export * from "./types";
 
-import "../css/globals.css";
+// import "../css/globals.css";

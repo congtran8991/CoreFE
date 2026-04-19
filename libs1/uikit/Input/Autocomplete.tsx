@@ -7,37 +7,9 @@ import {
 import React, { memo, useCallback } from "react";
 import { useInputProps } from "./helpers";
 import Label from "./Label";
-import { KInputProps } from "../types";
+import { KAutocompleteProps } from "../types";
 
-interface KAutocompleteProps extends KInputProps {
-    /** Allow selecting multiple values */
-    multiple?: boolean;
-    /** Disable the portal (render dropdown inline) */
-    disablePortal?: boolean;
-    /** Placeholder text */
-    placeholder?: string;
-    /** Loading state */
-    loading?: boolean;
-    /** Disable clearable */
-    disableClearable?: boolean;
-    /** Free solo mode (allow arbitrary input) */
-    freeSolo?: boolean;
-    /** Group options by a key */
-    groupBy?: (option: any) => string;
-    /** Custom render option */
-    renderOption?: (
-        props: React.HTMLAttributes<HTMLLIElement>,
-        option: any
-    ) => React.ReactNode;
-    /** Custom filter options */
-    filterOptions?: (options: any[], state: any) => any[];
-    /** Called when input text changes */
-    onInputChange?: (
-        event: React.SyntheticEvent,
-        value: string,
-        reason: string
-    ) => void;
-}
+
 
 const AutocompleteInput = React.forwardRef<HTMLInputElement, KAutocompleteProps>(
     (props, ref) => {

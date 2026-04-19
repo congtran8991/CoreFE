@@ -1,5 +1,6 @@
 import React from "react";
 import "./App.css";
+import "./global.css";
 
 import { createBrowserRouter, RouterProvider } from "react-router";
 import { Navigate } from "react-router-dom";

@@ -1,28 +1,27 @@
-FROM node:20-alpine
+# ── Stage 1: Build ──────────────────────────────────────────
+FROM node:20-alpine AS builder
 
 ENV NODE_OPTIONS=--max-old-space-size=4096
-# Set working directory
-WORKDIR /app
- 
-# Copy only package.json + lock file first for better caching
-COPY package.json yarn.lock ./
- 
-# Install dependencies
-RUN yarn install --frozen-lockfile
- 
-# Copy the rest of the project (source code)
-COPY . .
 
+WORKDIR /app
+
+# Copy lockfile trước để tận dụng layer cache của Docker
+# (nếu package.json không đổi, bước install sẽ được cache)
+COPY package.json yarn.lock ./
+RUN yarn install --frozen-lockfile
+
+COPY . .
 RUN yarn build
- 
-# Run linting to ensure code quality before building/running
-# RUN yarn lint
- 
-# Expose Vite dev server port
-EXPOSE 5173
- 
-# Start the dev server (can be overridden by docker-compose)
-# CMD ["yarn", "dev", "--host"]
-# RUN yarn build
-# CMD ["yarn", "start"]
-CMD ["npx", "serve@14", "-s", "dist", "-l", "5173"]
+
+# ── Stage 2: Serve ───────────────────────────────────────────
+FROM nginx:alpine
+
+# Copy cục build từ stage 1 vào thư mục Nginx serve
+COPY --from=builder /app/dist /usr/share/nginx/html
+
+# Copy Nginx config
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
