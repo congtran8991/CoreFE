@@ -3,12 +3,37 @@ import React, { CSSProperties, memo, useMemo } from "react";
 import styleHelper from "../styleHelper";
 import { KButtonProps, KButtonSize, KKind } from "../types";
 import KLabel from "../Label";
-import { set } from 'lodash';
 import { TypeTypography } from "@uikit/typography";
 import View from "@uikit/Container/View";
 import { KColors } from "@constants-libs";
 
+// ─── Constants (outside component to avoid recreation) ───────────────────────
 
+const OPTIONS_SIZE: Record<NonNullable<KButtonSize>, { height: number; icon: number; text: string; spacing: string }> = {
+  xlg: { height: 48, icon: 28, text: 'TextXlg', spacing: '0.5rem' },
+  lg: { height: 42, icon: 24, text: 'TextLg', spacing: '0.5rem' },
+  md: { height: 39, icon: 22, text: 'TextMd', spacing: '0.5rem' },
+  sm: { height: 30, icon: 18, text: 'TextSm', spacing: '0.5rem' },
+  xs: { height: 26, icon: 16, text: 'TextXs', spacing: '0.5rem' },
+};
+
+const OPTIONS_TYPO: Record<'bold' | 'medium' | 'normal', string> = {
+  bold: 'Bold',
+  medium: 'Medium',
+  normal: 'Normal',
+};
+
+/** Safe hover color lookup — only KKind keys that have `.alpha` */
+const HOVER_BY_KIND: Record<KKind, string> = {
+  primary: KColors.primary.alpha[8],
+  secondary: KColors.secondary.alpha[8],
+  success: KColors.success.alpha[8],
+  danger: KColors.danger.alpha[8],
+  info: KColors.info.alpha[8],
+  warning: KColors.warning.alpha[8],
+};
+
+// ─── Component ────────────────────────────────────────────────────────────────
 
 const Base = React.forwardRef<HTMLButtonElement, KButtonProps>(
   (props, ref) => {
@@ -32,107 +57,28 @@ const Base = React.forwardRef<HTMLButtonElement, KButtonProps>(
       ...rest
     } = props;
 
-    const { height, icon, text, spacing } = useMemo(() => {
-      const OPTIONS_SIZE: Record<NonNullable<KButtonSize>, any> = {
-        xlg: {
-          height: 48,
-          icon: 28,
-          text: 'TextXlg',
-          spacing: '0.5rem'
-        },
-        lg: {
-          height: 42,
-          icon: 24,
-          text: 'TextLg',
-          spacing: '0.5rem'
-        },
-        md: {
-          height: 39,
-          icon: 22,
-          text: 'TextMd',
-          spacing: '0.5rem'
-        },
-        sm: {
-          height: 30,
-          icon: 18,
-          text: 'TextSm',
-          spacing: '0.5rem'
-        },
-        xs: {
-          height: 26,
-          icon: 16,
-          text: 'TextXs',
-          spacing: '0.5rem'
-        },
-      }
+    const { height, icon, text, spacing } = OPTIONS_SIZE[size];
 
-
-      return OPTIONS_SIZE[size]
-    }, [size])
-
-    const textTypo = useMemo(() => {
-      const OPTIONS_TYPO: Record<'bold' | 'medium' | 'normal', string> = {
-        bold: 'Bold',
-        medium: 'Medium',
-        normal: 'Normal'
-      }
-
-      return `${text}${OPTIONS_TYPO[weight]}` as TypeTypography
-
-    }, [text, weight])
+    const textTypo = useMemo(
+      () => `${text}${OPTIONS_TYPO[weight]}` as TypeTypography,
+      [text, weight]
+    );
 
     const { mStyle, mProps } = styleHelper.destructStyles(rest);
 
-    const { innerStyle, innerProps } = useMemo(() => {
-      const innerStyle = {
+    const styledButton: CSSProperties = useMemo(() => {
+      const base: CSSProperties = {
         ...mStyle.layout,
         ...mStyle.spacing,
         ...mStyle.textStyle,
         ...mStyle.styling,
         ...style,
+        opacity: disabled ? 0.5 : 1,
+        height,
+        ...(title ? { minWidth: height } : { width: height }),
       };
-      return { innerStyle, innerProps: mProps };
-    }, [mProps, mStyle.layout, mStyle.spacing, mStyle.styling, mStyle.textStyle, style]);
-
-    const commonStyle = useMemo(() => {
-      const r = {
-        ...innerStyle
-      }
-
-      set(r, 'opacity', disabled ? 0.5 : 1);
-
-      return r
-    }, [disabled, innerStyle])
-
-    const styledButton: CSSProperties = useMemo(() => {
-      const clone = { ...commonStyle };
-
-      set(clone, 'height', height);
-
-      if (!title) {
-        set(clone, 'width', height);
-      } else {
-        set(clone, 'minWidth', height);
-      }
-
-      return clone;
-    }, [commonStyle, height, title]);
-
-    const renderLoading = useMemo(() => {
-      return (
-        <>
-          <CircularProgress
-            color="inherit"
-            size={icon}
-            sx={{
-              mr: loadingText ? "0.5rem" : 0, position: 'absolute',
-              transform: 'translate(-50%, -50%)'
-            }}
-          />
-          {loadingText}
-        </>
-      );
-    }, [icon, loadingText]);
+      return base;
+    }, [mStyle, style, disabled, height, title]);
 
     return (
       <Button
@@ -140,14 +86,14 @@ const Base = React.forwardRef<HTMLButtonElement, KButtonProps>(
         variant={variant}
         fullWidth={fullWidth}
         disabled={disabled || loading}
-        style={{ ...styledButton }}
+        style={styledButton}
         sx={{
           '&:focus': { outline: 'none', boxShadow: 'none' },
           '&.Mui-focusVisible': { outline: 'none', boxShadow: 'none' },
-          '&:hover': { backgroundColor: KColors[kind as keyof typeof KColors].alpha[8] },
-          ...sx
+          '&:hover': { backgroundColor: HOVER_BY_KIND[kind] },
+          ...sx,
         }}
-        {...innerProps}
+        {...mProps}
       >
         <View display="flex" alignItems="center" justifyContent="center" gap={spacing}>
           {IconStart && <Icon component={IconStart} sx={{ fontSize: icon, color: iconColor || textColor }} />}
@@ -156,8 +102,13 @@ const Base = React.forwardRef<HTMLButtonElement, KButtonProps>(
         </View>
 
         {loading && (
-          renderLoading
+          <CircularProgress
+            color="inherit"
+            size={icon}
+            sx={{ mr: loadingText ? '0.5rem' : 0, position: 'absolute', transform: 'translate(-50%, -50%)' }}
+          />
         )}
+        {loading && loadingText}
       </Button>
     );
   },
