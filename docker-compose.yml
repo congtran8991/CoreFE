@@ -6,5 +6,5 @@ services:
     image: corefe-core-fe:latest
     container_name: core-fe
     ports:
-      - "80:80"
+      - "4000:4000"
     restart: unless-stopped
