@@ -3,6 +3,9 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        NODE_ENV: production  # ← Override ở đây
+        
     image: corefe-core-fe:latest
     container_name: core-fe
     ports:

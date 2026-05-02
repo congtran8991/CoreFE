@@ -31,12 +31,11 @@ const BaseInput = React.forwardRef<HTMLInputElement, KInputProps>(
         <TextField
           id={name}
           color="info"
-          // style={innerStyle}
           inputRef={combineRefs}
           type={type}
           slotProps={{
             input: { sx },
-            inputLabel,
+            inputLabel: inputLabel,
             ...slotProps,
           }}
           label={!horizontal ? label : ""}

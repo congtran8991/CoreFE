@@ -2,7 +2,6 @@ import {
     Autocomplete as MUIAutocomplete,
     Stack,
     TextField,
-    Typography,
 } from "@mui/material";
 import React, { memo, useCallback } from "react";
 import { useInputProps } from "./helpers";
@@ -71,6 +70,7 @@ const AutocompleteInput = React.forwardRef<HTMLInputElement, KAutocompleteProps>
                     <Label required={required} label={label} />
                 )}
                 <MUIAutocomplete
+                    openOnFocus={true}
                     multiple={multiple}
                     options={options}
                     value={selectedValue}
@@ -91,6 +91,7 @@ const AutocompleteInput = React.forwardRef<HTMLInputElement, KAutocompleteProps>
                     filterOptions={filterOptions}
                     fullWidth={fullWidth}
                     size={size}
+                    {...rest}
                     renderInput={(params) => (
                         <TextField
                             {...params}
@@ -101,19 +102,13 @@ const AutocompleteInput = React.forwardRef<HTMLInputElement, KAutocompleteProps>
                             error={error}
                             placeholder={placeholder}
                             style={innerStyle}
+                            helperText={helperText}
+                            slotProps={{
+                                inputLabel: { shrink: true }
+                            }}
                         />
                     )}
                 />
-                {helperText && (
-                    <Typography
-                        marginLeft={"1rem"}
-                        marginTop={"0.25rem"}
-                        fontSize={"0.75rem"}
-                        color="#d32f2f"
-                    >
-                        {helperText}
-                    </Typography>
-                )}
             </Stack>
         );
     }

@@ -73,6 +73,26 @@ const FormLogin = () => {
             )}
           />
         </Grid>
+
+        <Grid size={{ xs: 12 }}>
+          <Controller
+            name={`password`}
+            control={methods.control}
+            render={({ field, fieldState: { error } }) => (
+              <KInput.Autocomplete
+                {...field}
+                size="small"
+                label="Password"
+                message={error?.message}
+                inputLabel={{ shrink: true }}
+                horizontal={false}
+                options={[{ label: "jdjdjd", value: 6 }, { label: "jdjedjd", value: 66 }]}
+                required
+                multiple
+              />
+            )}
+          />
+        </Grid>
         <Box width="100%" display={"flex"} justifyContent={"space-between"}>
           <Box>
             <Typography

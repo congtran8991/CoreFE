@@ -22,7 +22,7 @@ export const useInputProps = (
       ...style,
     };
     return { innerStyle, innerProps: mProps };
-  }, [mStyle, style]);
+  }, [mProps, mStyle.layout, mStyle.spacing, mStyle.textStyle, style]);
 
   return {
     combineRefs,
